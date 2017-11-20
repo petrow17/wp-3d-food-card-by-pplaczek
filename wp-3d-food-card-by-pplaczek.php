@@ -1,8 +1,8 @@
 <?php
 /*
 	Plugin Name: Wp 3D Food Card by pplaczek
-	Plugin URI: http://webroad.pl/cms/5847-tworzenie-wtyczki-wordpress-1
-	Description: Adds 3d food card
+	Plugin URI: https://github.com/petrow17/wp-3d-food-card-by-pplaczek
+	Description: Plugin creates 3D food card inspirated by https://tympanus.net/codrops/2012/09/25/3d-restaurant-menu-concept/
 	Version: 1.0
 	Author: Piotr Płaczek
 	Author URI: http://www.petrow17.private.pl/piotr/
