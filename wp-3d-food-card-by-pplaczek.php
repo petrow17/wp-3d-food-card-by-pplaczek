@@ -16,6 +16,7 @@ register_activation_hook(__FILE__, 'pp_3dfc_install');
 register_deactivation_hook(__FILE__, 'pp_3dfc_uninstall');
 add_action('admin_menu','pp_3dfc_add_ap_pages');
 add_action('init', 'pp_3dfc_init');
+add_shortcode('pp_3dfc', 'pp_3dfc_show');
 
 /*
  * Initialize function
@@ -150,7 +151,7 @@ function pp_3dfc_display_main_ap_page(){
 /*
  * Shows food card
 */
-function pp_3dfc_show(){
+function pp_3dfc_show($atts){
 	echo '<div id="rm-container" class="rm-container">';
 	echo '<div class="rm-wrapper">';
 	echo '<div class="rm-cover">';
