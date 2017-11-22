@@ -164,7 +164,25 @@ function pp_3dfc_show(){
  * Shows food card (Cover front)
 */
 function pp_3dfc_show_cover_front(){
-	
+	echo '<div class="rm-cover">';
+	echo '<div class="rm-front">';
+	echo '<div class="rm-content">';
+	echo '<div class="rm-logo"></div>';
+	echo '<h2>Nazwa</h2>';
+	echo '<h3>Krótkie hasło</h3>';
+	echo '<a href="#" class="rm-button-open">'.__('Open').'</a>';
+	echo '<div class="rm-info"><p>';
+	echo '<strong>Nazwa</strong>';
+	echo '<br>';
+	echo 'Adres cz.1';
+	echo '<br>';
+	echo 'Adres cz.2';
+	echo '<br>';
+	echo '<strong>.'__('Phone')'.</strong> nr tel';
+	echo '<br>';
+	echo '<strong>.'__('Fax')'.</strong> nr fax';
+	echo '<br>';
+	echo '</p></div></div></div>';
 }
 
 /*
