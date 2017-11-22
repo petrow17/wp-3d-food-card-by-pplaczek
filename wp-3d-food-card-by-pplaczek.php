@@ -147,7 +147,46 @@ function pp_3dfc_display_main_ap_page(){
         
 }
 
+/*
+ * Shows food card
+*/
+function pp_3dfc_show(){
+	echo '<div id="rm-container" class="rm-container">';
+	echo '<div class="rm-wrapper">';
+	pp_3dfc_show_cover_front();
+	pp_3dfc_show_cover_back();
+	pp_3dfc_show_middle_lage();
+	pp_3dfc_show_right_page();
+	echo '</div><div>';
+}
 
+/*
+ * Shows food card (Cover front)
+*/
+function pp_3dfc_show_cover_front(){
+	
+}
+
+/*
+ * Shows food card (Cover back)
+*/
+function pp_3dfc_show_cover_back(){
+	
+}
+
+/*
+ * Shows food card (Middle page)
+*/
+function pp_3dfc_show_middle_lage(){
+	
+}
+
+/*
+ * Shows food card  (Right page)
+*/
+function pp_3dfc_show_right_page(){
+	
+}
 
 function getAllItems($orderBy){
     global $wpdb;
