@@ -15,8 +15,16 @@ require PP_3DFC_PATH.'model/food-card.php';
 register_activation_hook(__FILE__, 'pp_3dfc_install');
 register_deactivation_hook(__FILE__, 'pp_3dfc_uninstall');
 add_action('admin_menu','pp_3dfc_add_ap_pages');
+add_action('init', 'pp_3dfc_init');
 
-
+/*
+ * Initialize function
+ * http://webhelp.pl/artykuly/wordpress-jak-poprawnie-dodawac-skrypty-javascript-i-arkusze-stylow-css/
+*/
+function pp_3dfc_init(){
+	wp_register_script('pp3dfc_script_menu', plugins_url('/js/menu.js', __FILE__), array('jquery'));
+    wp_enqueue_script('pp3dfc_script_menu');
+}
 
 /*
  * Instalation function
