@@ -1,81 +1,88 @@
-var Menu = (function() {
-	
-	var $container = $( '#rm-container' ),						
-		$cover = $container.find( 'div.rm-cover' ),
-		$middle = $container.find( 'div.rm-middle' ),
-		$right = $container.find( 'div.rm-right' ),
-		$open = $cover.find('a.rm-button-open'),
-		$close = $right.find('span.rm-close'),
-		$details = $container.find( 'a.rm-viewdetails' ),
+var Menu = (function () {
 
-		init = function() {
+    var $container = null,
+        $cover = null,
+        $middle = null,
+        $right = null,
+        $close = null,
+        $details = null,
 
-			initEvents();
+        init = function () {
+            $container = $('#rm-container');
+            $cover = $container.find('div.rm-cover');
+            $middle = $container.find('div.rm-middle');
+            $right = $container.find('div.rm-right');
+            $open = $cover.find('a.rm-button-open');
+            $close = $right.find('span.rm-close');
+            $details = $container.find('a.rm-viewdetails');
+            initEvents();
 
-		},
-		initEvents = function() {
+        },
+        initEvents = function () {
 
-			$open.on( 'click', function( event ) {
+            $open.on('click', function (event) {
 
-				openMenu();
-				return false;
+                openMenu();
+                return false;
 
-			} );
+            });
 
-			$close.on( 'click', function( event ) {
+            $close.on('click', function (event) {
 
-				closeMenu();
-				return false;
+                closeMenu();
+                return false;
 
-			} );
+            });
 
-			$details.on( 'click', function( event ) {
+            $details.on('click', function (event) {
 
-				$container.removeClass( 'rm-in' ).children( 'div.rm-modal' ).remove();
-				viewDetails( $( this ) );
-				return false;
+                $container.removeClass('rm-in').children('div.rm-modal').remove();
+                viewDetails($(this));
+                return false;
 
-			} );
-			
-		},
-		openMenu = function() {
+            });
 
-			$container.addClass( 'rm-open' );
+        },
+        openMenu = function () {
 
-		},
-		closeMenu = function() {
+            $container.addClass('rm-open');
 
-			$container.removeClass( 'rm-open rm-nodelay rm-in' );
+        },
+        closeMenu = function () {
 
-		},
-		viewDetails = function( recipe ) {
+            $container.removeClass('rm-open rm-nodelay rm-in');
 
-			var title = recipe.text(),
-				img = recipe.data( 'thumb' ),
-				description = recipe.parent().next().text(),
-				url = recipe.attr( 'href' );
+        },
+        viewDetails = function (recipe) {
 
-			var $modal = $( '<div class="rm-modal"><div class="rm-thumb" style="background-image: url(' + img + ')"></div><h5>' + title + '</h5><p>' + description + '</p><a href="' + url + '">See the recipe</a><span class="rm-close-modal">x</span></div>' );
+            var title = recipe.text(),
+                img = recipe.data('thumb'),
+                description = recipe.parent().next().text(),
+                url = recipe.attr('href');
 
-			$modal.appendTo( $container );
+            var $modal = $('<div class="rm-modal"><div class="rm-thumb" style="background-image: url(' + img + ')"></div><h5>' + title + '</h5><p>' + description + '</p><a href="' + url + '">See the recipe</a><span class="rm-close-modal">x</span></div>');
 
-			var h = $modal.outerHeight( true );
-			$modal.css( 'margin-top', -h / 2 );
+            $modal.appendTo($container);
 
-			setTimeout( function() {
+            var h = $modal.outerHeight(true);
+            $modal.css('margin-top', -h / 2);
 
-				$container.addClass( 'rm-in rm-nodelay' );
+            setTimeout(function () {
 
-				$modal.find( 'span.rm-close-modal' ).on( 'click', function() {
+                $container.addClass('rm-in rm-nodelay');
 
-					$container.removeClass( 'rm-in' );
+                $modal.find('span.rm-close-modal').on('click', function () {
 
-				} );
-			
-			}, 0 );
+                    $container.removeClass('rm-in');
 
-		};
+                });
 
-	return { init : init };
+            }, 0);
+
+        };
+
+    return {
+        init: init
+    };
 
 })();
