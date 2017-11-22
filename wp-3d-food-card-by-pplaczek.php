@@ -153,9 +153,11 @@ function pp_3dfc_display_main_ap_page(){
 function pp_3dfc_show(){
 	echo '<div id="rm-container" class="rm-container">';
 	echo '<div class="rm-wrapper">';
+	echo '<div class="rm-cover">';
 	pp_3dfc_show_cover_front();
 	pp_3dfc_show_cover_back();
-	pp_3dfc_show_middle_lage();
+	echo '</div>';
+	pp_3dfc_show_middle_page();
 	pp_3dfc_show_right_page();
 	echo '</div><div>';
 }
@@ -164,7 +166,6 @@ function pp_3dfc_show(){
  * Shows food card (Cover front)
 */
 function pp_3dfc_show_cover_front(){
-	echo '<div class="rm-cover">';
 	echo '<div class="rm-front">';
 	echo '<div class="rm-content">';
 	echo '<div class="rm-logo"></div>';
@@ -189,21 +190,56 @@ function pp_3dfc_show_cover_front(){
  * Shows food card (Cover back)
 */
 function pp_3dfc_show_cover_back(){
+	echo '<div class="rm-back">';
+	echo '<div class="rm-content">';
+	echo '<h4>Grupa</h4>';
+	echo '<dl>';
+	echo '<dt>Nazwa</dt>';
+	echo '<dd>Opis</dd>';
+	echo '</dl>';
+	echo '</div>';
+	echo '<div class="rm-overlay"></div>';
+	echo '</div>';
 	
+//	Not suported yet:
+//	<dt><a href="recipe.html" class="rm-viewdetails" data-thumb="images/1.jpg">Title with image and recipe</a></dt>
 }
 
 /*
  * Shows food card (Middle page)
 */
-function pp_3dfc_show_middle_lage(){
-	
+function pp_3dfc_show_middle_page(){
+	echo '<div class="rm-middle">';
+	echo '<div class="rm-inner">';
+	echo '<div class="rm-content">';
+	echo '<h4>Grupa</h4>';
+	echo '<dl>';
+	echo '<dt>Nazwa</dt>';
+	echo '<dd>Opis</dd>';
+	echo '</dl>';
+	echo '</div>';
+	echo '<div class="rm-overlay"></div>';
+	echo '</div></div>';
 }
 
 /*
  * Shows food card  (Right page)
 */
 function pp_3dfc_show_right_page(){
-	
+	echo '<div class="rm-right">';
+	echo '<div class="rm-front"></div>';
+	echo '<div class="rm-back">';
+	echo '<span class="rm-close">'.__('Close').'</span>';
+	echo '<div class="rm-content">';
+	echo '<h4>Grupa</h4>';
+	echo '<dl>';
+	echo '<dt>Nazwa</dt>';
+	echo '<dd>Opis</dd>';
+	echo '</dl>';
+//	<div class="rm-order">
+//		<p><strong>Would you like us to cater your event?</strong> Call us &amp; we'll help you find a venue and organize the event: <strong>626.511.1170</strong></p>
+//	</div>
+	echo '</div></div></div>';
 }
 
 function getAllItems($orderBy){
