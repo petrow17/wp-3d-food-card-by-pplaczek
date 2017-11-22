@@ -22,7 +22,7 @@ add_shortcode('pp_3dfc', 'pp_3dfc_show');
  * http://webhelp.pl/artykuly/wordpress-jak-poprawnie-dodawac-skrypty-javascript-i-arkusze-stylow-css/
 */
 function pp_3dfc_init(){
-	wp_register_script('pp3dfc_script_menu', plugins_url('/js/menu.js', __FILE__), array('jquery'));
+	wp_register_script('pp3dfc_script_menu', plugins_url('/js/menu.js', __FILE__)/*, array('jquery')*/);
     wp_enqueue_script('pp3dfc_script_menu');
 	wp_register_style('pp3dfc_style_menu', plugins_url('/css/style.css', __FILE__));
     wp_enqueue_style('pp3dfc_style_menu');
@@ -235,6 +235,7 @@ function pp_3dfc_show_right_page(){
  * Menu initialize
 */
 function pp_3dfc_menu_init_script(){
+    echo '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>';
     echo '<script type="text/javascript">$(function() {Menu.init();});</script>';
 }
 
