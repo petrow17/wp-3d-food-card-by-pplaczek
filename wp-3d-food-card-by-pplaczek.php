@@ -192,11 +192,7 @@ function pp_3dfc_show_cover_front(){
 function pp_3dfc_show_cover_back(){
 	echo '<div class="rm-back">';
 	echo '<div class="rm-content">';
-	echo '<h4>Grupa</h4>';
-	echo '<dl>';
-	echo '<dt>Nazwa</dt>';
-	echo '<dd>Opis</dd>';
-	echo '</dl>';
+	echo pp_3dfc_get_page_content(0);
 	echo '</div>';
 	echo '<div class="rm-overlay"></div>';
 	echo '</div>';
@@ -212,11 +208,7 @@ function pp_3dfc_show_middle_page(){
 	echo '<div class="rm-middle">';
 	echo '<div class="rm-inner">';
 	echo '<div class="rm-content">';
-	echo '<h4>Grupa</h4>';
-	echo '<dl>';
-	echo '<dt>Nazwa</dt>';
-	echo '<dd>Opis</dd>';
-	echo '</dl>';
+	echo pp_3dfc_get_page_content(1);
 	echo '</div>';
 	echo '<div class="rm-overlay"></div>';
 	echo '</div></div>';
@@ -231,15 +223,52 @@ function pp_3dfc_show_right_page(){
 	echo '<div class="rm-back">';
 	echo '<span class="rm-close">'.__('Close').'</span>';
 	echo '<div class="rm-content">';
-	echo '<h4>Grupa</h4>';
-	echo '<dl>';
-	echo '<dt>Nazwa</dt>';
-	echo '<dd>Opis</dd>';
-	echo '</dl>';
+	echo pp_3dfc_get_page_content(2);
 //	<div class="rm-order">
 //		<p><strong>Would you like us to cater your event?</strong> Call us &amp; we'll help you find a venue and organize the event: <strong>626.511.1170</strong></p>
 //	</div>
 	echo '</div></div></div>';
+}
+
+/*
+ * Returns pageNo content
+ * 0- cover back
+ * 1- middle page
+ * 2- right page (back)
+*/
+function pp_3dfc_get_page_content($pageNo){
+	if($pageNo<0 || 2<$pageNo) return null;
+	$items = getAllItems("type");
+	$itemsCount = count($items);
+	$itemsPerPage = $itemsCount/3;
+	$currentItemType = 'none';
+	$result = '';
+	
+	if($pageNo > 0){
+		for($i = 0; $i < ($pageNo*$itemsPerPage); $i++){
+			$item = $items[$i];
+			if($item['type'] != $currentItemType){
+				$currentItemType = $item['type'];
+			}
+		}
+	}
+	
+	for($i = ($pageNo*$itemsPerPage); $i < ($pageNo*$itemsPerPage)+$itemsPerPage; $i++){
+		$item = $items[$i];
+		
+		if($item['type'] != $currentItemType){
+			if($currentItemType != 'none'){
+				$result .= '</dl>';
+			}
+			$result .= '<h4>'.$item['type'].'</h4><dl>';
+			$currentItemType = $item['type'];
+		}
+		
+		$result .= '<dt>'.$item['title'].' <i>('.$item['amount'].')</i> <b>'.$item['price'].'</b>'.$item['currency'].'</dt>';
+		$result .= '<dd>'.$item['description'].'</dd>';
+	}
+	
+	return $result;
 }
 
 function getAllItems($orderBy){
