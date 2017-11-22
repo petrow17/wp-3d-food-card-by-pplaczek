@@ -182,7 +182,7 @@ function pp_3dfc_show_cover_front(){
 	echo '<br>';
 	echo '<strong>'.__('Phone').'</strong> nr tel';
 	echo '<br>';
-	echo '<strong>'.__('Fax').'</strong> nr fax';
+    echo '<strong>'.__('Fax').'</strong> nr fax';
 	echo '<br>';
 	echo '</p></div></div></div>';
 }
