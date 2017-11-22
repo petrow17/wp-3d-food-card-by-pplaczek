@@ -24,6 +24,8 @@ add_action('init', 'pp_3dfc_init');
 function pp_3dfc_init(){
 	wp_register_script('pp3dfc_script_menu', plugins_url('/js/menu.js', __FILE__), array('jquery'));
     wp_enqueue_script('pp3dfc_script_menu');
+	wp_register_style('pp3dfc_style_menu', plugins_url('/css/style.css', __FILE__));
+    wp_enqueue_style('pp3dfc_style_menu');
 }
 
 /*
