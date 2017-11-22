@@ -10,7 +10,6 @@
 */
 
 define( 'PP_3DFC_PATH', plugin_dir_path( __FILE__ ) );
-require PP_3DFC_PATH.'model/food-card.php';
 
 register_activation_hook(__FILE__, 'pp_3dfc_install');
 register_deactivation_hook(__FILE__, 'pp_3dfc_uninstall');
@@ -161,6 +160,7 @@ function pp_3dfc_show($atts){
 	pp_3dfc_show_middle_page();
 	pp_3dfc_show_right_page();
 	echo '</div><div>';
+    pp_3dfc_menu_init_script();
 }
 
 /*
@@ -229,6 +229,13 @@ function pp_3dfc_show_right_page(){
 //		<p><strong>Would you like us to cater your event?</strong> Call us &amp; we'll help you find a venue and organize the event: <strong>626.511.1170</strong></p>
 //	</div>
 	echo '</div></div></div>';
+}
+
+/*
+ * Menu initialize
+*/
+function pp_3dfc_menu_init_script(){
+    echo '<script type="text/javascript">$(function() {Menu.init();});</script>';
 }
 
 /*
