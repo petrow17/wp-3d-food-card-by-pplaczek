@@ -81,13 +81,29 @@ function pp_3dfc_table_name(){
  * Adds pages to AP
 */
 function pp_3dfc_add_ap_pages(){
-    add_menu_page('3D Food Card','3D Food Card','administrator','food-card-ap-menu','pp_3dfc_display_main_ap_page','dashicons-carrot',26);
+    add_menu_page('3D Food Card','3D Food Card','administrator','food-card-ap-menu-main','pp_3dfc_display_main_ap_page','dashicons-carrot',26);
+    add_submenu_page('food-card-ap-menu-main','3D Food Card',__('Cover'),'administrator','food-card-ap-menu-cover','pp_3dfc_display_cover_ap_page');
+    add_submenu_page('food-card-ap-menu-main','3D Food Card',__('Items'),'administrator','food-card-ap-menu-items','pp_3dfc_display_items_ap_page');
 }
 
 /*
- * Shows the plugin main admin page
+ * Shows the plugin admin page - cover
 */
 function pp_3dfc_display_main_ap_page(){
+    echo '<h1>3D Food Card</h1>';
+    echo '<h2>Wordpress plugin by pplaczek</h2>';
+}
+
+/*
+ * Shows the plugin admin page - cover
+*/
+function pp_3dfc_display_cover_ap_page(){
+	echo '<h2>cover</h2>';
+}
+/*
+ * Shows the plugin admin page - items
+*/
+function pp_3dfc_display_items_ap_page(){
     if(isset($_POST['pp_3dfc'])){
         deleteAllItems();
         foreach($_POST['pp_3dfc'] as $item){
@@ -97,7 +113,7 @@ function pp_3dfc_display_main_ap_page(){
     $allItems = getAllItems("type");
     
     echo '<h1>3D Food Card by pplaczek</h1>';
-    echo '<form action="?page=food-card-ap-menu" method="post">';
+    echo '<form action="?page=food-card-ap-menu-items" method="post">';
     echo '<table class="pp_3dfc_ap_table">
     <thead>
     <tr>
