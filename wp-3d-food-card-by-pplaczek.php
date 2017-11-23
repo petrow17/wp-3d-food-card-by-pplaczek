@@ -87,11 +87,20 @@ function pp_3dfc_add_ap_pages(){
 }
 
 /*
- * Shows the plugin admin page - cover
+ * Shows the plugin admin page - main (info)
 */
 function pp_3dfc_display_main_ap_page(){
     echo '<h1>3D Food Card</h1>';
     echo '<h2>Wordpress plugin by pplaczek</h2>';
+    echo '<hr>';
+    echo 'This plugin adds <pre><b>[pp_3dfc]</b></pre> shortcode to yours wordpress engine.<br>';
+    echo 'This shortcode shows the conceptual, flyer like, 3D restaurant menu.<br><br>';
+    echo 'This project was inspired by: 
+    <a href="https://tympanus.net/codrops/2012/09/25/3d-restaurant-menu-concept/" target="_blank">CODROPS</a> 
+    <a href="https://github.com/codrops/3DRestaurantMenu" target="_blank">GIT</a>
+    <br>';
+    echo 'The git of this project you can find <a href="https://github.com/petrow17/wp-3d-food-card-by-pplaczek" target="_blank">here</a>.';
+
 }
 
 /*
