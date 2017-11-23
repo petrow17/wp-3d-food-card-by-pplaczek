@@ -76,7 +76,7 @@ function pp_3dfc_install(){
  * Uninstalation function
 */
 function pp_3dfc_uninstall(){
-    global $wpdb;    
+    global $wpdb;
     $query ='DROP TABLE '.pp_3dfc_table_name();
     $wpdb->query($query);
     $query ='DROP TABLE '.pp_3dfc_cover_table_name();
@@ -352,6 +352,23 @@ function addItem($data) {
 function deleteAllItems() {
     global $wpdb;
     $sql = "TRUNCATE TABLE " . pp_3dfc_table_name();
+    $wpdb->query($sql);
+}
+
+function getAllCoverData(){
+    global $wpdb;
+    $query = "SELECT * FROM  " . pp_3dfc_cover_table_name() . ";";
+    return $wpdb->get_results($query, ARRAY_A);
+}
+    
+function addCoverData($data) {
+    global $wpdb;
+    $res = $wpdb->insert(pp_3dfc_cover_table_name(), $data); 
+}
+    
+function deleteAllCoverData() {
+    global $wpdb;
+    $sql = "TRUNCATE TABLE " . pp_3dfc_cover_table_name();
     $wpdb->query($sql);
 }
 ?>
