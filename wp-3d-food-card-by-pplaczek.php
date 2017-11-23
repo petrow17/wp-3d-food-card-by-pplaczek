@@ -255,22 +255,23 @@ function pp_3dfc_show($atts){
  * Shows food card (Cover front)
 */
 function pp_3dfc_show_cover_front(){
+    $items = getAllCoverData();
 	echo '<div class="rm-front">';
 	echo '<div class="rm-content">';
 	echo '<div class="rm-logo"></div>';
-	echo '<h2>Nazwa</h2>';
-	echo '<h3>Krótkie hasło</h3>';
+	echo '<h2>'.$items[0]['value'].'</h2>';
+	echo '<h3>'.$items[1]['value'].'</h3>';
 	echo '<a href="#" class="rm-button-open">'.__('Open').'</a>';
 	echo '<div class="rm-info"><p>';
-	echo '<strong>Nazwa</strong>';
+	echo '<strong>'.$items[0]['value'].'</strong>';
 	echo '<br>';
-	echo 'Adres cz.1';
+	echo $items[2]['value'];
+    echo '<br>';
+    echo $items[3]['value'];
 	echo '<br>';
-	echo 'Adres cz.2';
+	echo '<strong>'.__('Tel.').'</strong> '.$items[4]['value'];
 	echo '<br>';
-	echo '<strong>'.__('Phone').'</strong> nr tel';
-	echo '<br>';
-    echo '<strong>'.__('Fax').'</strong> nr fax';
+    echo '<strong>'.__('Tel.').'</strong> '.$items[5]['value'];
 	echo '<br>';
 	echo '</p></div></div></div>';
 }
