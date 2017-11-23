@@ -38,6 +38,7 @@ function pp_3dfc_init(){
 function pp_3dfc_install(){
     global $wpdb;
     $pp_3dfc_db_version = "1.1";
+    $pp_3dfc_cover_db_version = "1.0";
     
     if ($wpdb->get_var("SHOW TABLES LIKE '" . pp_3dfc_table_name() . "'") != pp_3dfc_table_name()) {
         $query = "CREATE TABLE " . pp_3dfc_table_name() . " ( 
@@ -55,6 +56,19 @@ function pp_3dfc_install(){
 
         add_option("pp_3dfc_db_version", $pp_3dfc_db_version);
     }
+
+    if ($wpdb->get_var("SHOW TABLES LIKE '" . pp_3dfc_cover_table_name() . "'") != pp_3dfc_cover_table_name()) {
+        $query = "CREATE TABLE " . pp_3dfc_cover_table_name() . " ( 
+        id int(9) NOT NULL AUTO_INCREMENT,
+        param varchar(250) NOT NULL,  
+        value varchar(250) NOT NULL,
+        PRIMARY KEY  (id)
+        )";
+
+        $wpdb->query($query);
+
+        add_option("pp_3dfc_cover_db_version", $pp_3dfc_cover_db_version);
+    }
 }
 
 
@@ -65,6 +79,8 @@ function pp_3dfc_uninstall(){
     global $wpdb;    
     $query ='DROP TABLE '.pp_3dfc_table_name();
     $wpdb->query($query);
+    $query ='DROP TABLE '.pp_3dfc_cover_table_name();
+    $wpdb->query($query);
 }
 
 /*
@@ -74,6 +90,16 @@ function pp_3dfc_table_name(){
     global $wpdb;
     $prefix = $wpdb->prefix;
     $pp_3dfc_tablename = $prefix . "pp_3dfc";
+    return $pp_3dfc_tablename;
+}
+
+/*
+ * Returns database additional table name (for cover)
+*/
+function pp_3dfc_cover_table_name(){
+    global $wpdb;
+    $prefix = $wpdb->prefix;
+    $pp_3dfc_tablename = $prefix . "pp_3dfc_cover";
     return $pp_3dfc_tablename;
 }
 
@@ -107,8 +133,9 @@ function pp_3dfc_display_main_ap_page(){
  * Shows the plugin admin page - cover
 */
 function pp_3dfc_display_cover_ap_page(){
-	echo '<h2>cover</h2>';
+    echo '<h2>cover</h2>';
 }
+
 /*
  * Shows the plugin admin page - items
 */
