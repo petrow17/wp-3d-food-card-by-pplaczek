@@ -24,8 +24,12 @@ add_shortcode('pp_3dfc', 'pp_3dfc_show');
 function pp_3dfc_init(){
 	wp_register_script('pp3dfc_script_menu', plugins_url('/js/menu.js', __FILE__)/*, array('jquery')*/);
     wp_enqueue_script('pp3dfc_script_menu');
-	wp_register_style('pp3dfc_style_menu', plugins_url('/css/style.css', __FILE__));
-    wp_enqueue_style('pp3dfc_style_menu');
+	wp_register_style('pp3dfc_style_normalize', plugins_url('/css/normalize.css', __FILE__));
+	wp_enqueue_style('pp3dfc_style_normalize');
+	wp_register_style('pp3dfc_style_demo', plugins_url('/css/demo.css', __FILE__),array('pp3dfc_style_normalize'));
+	wp_enqueue_style('pp3dfc_style_demo');
+	wp_register_style('pp3dfc_style_menu', plugins_url('/css/style.css', __FILE__),array('pp3dfc_style_demo'));
+	wp_enqueue_style('pp3dfc_style_menu');
 }
 
 /*
