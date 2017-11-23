@@ -67,6 +67,14 @@ function pp_3dfc_install(){
 
         $wpdb->query($query);
 
+        addCoverData(array('param'=>'Title', 'value'=>'title'));
+        addCoverData(array('param'=>'Catchword', 'value'=>'catchword'));
+        addCoverData(array('param'=>'Addres line 1', 'value'=>'address'));
+        addCoverData(array('param'=>'Addres line 2', 'value'=>'address'));
+        addCoverData(array('param'=>'Phone line 1', 'value'=>'phone'));
+        addCoverData(array('param'=>'Phone line 2', 'value'=>'phone'));
+        
+
         add_option("pp_3dfc_cover_db_version", $pp_3dfc_cover_db_version);
     }
 }
@@ -133,7 +141,28 @@ function pp_3dfc_display_main_ap_page(){
  * Shows the plugin admin page - cover
 */
 function pp_3dfc_display_cover_ap_page(){
-    echo '<h2>cover</h2>';
+    if(isset($_POST['pp_3dfc_cover'])){
+        foreach($_POST['pp_3dfc_cover'] as $item){
+            updateCoverData(array('param'=>$item['param'], 'value'=>$item['value']));
+        }
+    }
+    $allItems = getAllCoverData();
+    echo '<h1>3D Food Card by pplaczek</h1>';
+    echo '<h2>Cover setup</h2>';
+    echo '<form action="?page=food-card-ap-menu-cover" method="post">';
+    echo '<table class="pp_3dfc_ap_cover_table">';
+    $i = 0;
+    foreach($allItems as $item){
+        echo '<tr>';
+        echo '<td><p name="pp_3dfc_cover['.$i.'][param]">' . $item['param'] . '"</p><input type="hidden" name="pp_3dfc_cover['.$i.'][id]" value="'.$item['id'].'" /></td>';
+        echo '<td><input name="pp_3dfc_cover['.$i.'][value]" type="text" value="' . $item['value'] . '" /></td>';
+        echo '</tr>';
+        
+        $i++;
+    }
+    echo '</table>';
+    echo '<input type="submit" value="' . __('Save') . '" />';
+    echo '</form>';
 }
 
 /*
@@ -357,7 +386,7 @@ function deleteAllItems() {
 
 function getAllCoverData(){
     global $wpdb;
-    $query = "SELECT * FROM  " . pp_3dfc_cover_table_name() . ";";
+    $query = "SELECT * FROM  " . pp_3dfc_cover_table_name() . " ORDER BY id ASC;";
     return $wpdb->get_results($query, ARRAY_A);
 }
     
@@ -369,6 +398,12 @@ function addCoverData($data) {
 function deleteAllCoverData() {
     global $wpdb;
     $sql = "TRUNCATE TABLE " . pp_3dfc_cover_table_name();
+    $wpdb->query($sql);
+}
+
+function updateCoverData($data){
+    global $wpdb;
+    $sql = "UPDATE " . pp_3dfc_cover_table_name() . 'SET value="'.$data['value'].'" WHERE param="'.$data['param'].'";';
     $wpdb->query($sql);
 }
 ?>
