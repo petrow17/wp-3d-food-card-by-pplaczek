@@ -154,7 +154,10 @@ function pp_3dfc_display_cover_ap_page(){
     $i = 0;
     foreach($allItems as $item){
         echo '<tr>';
-        echo '<td><p name="pp_3dfc_cover['.$i.'][param]">' . $item['param'] . '"</p><input type="hidden" name="pp_3dfc_cover['.$i.'][id]" value="'.$item['id'].'" /></td>';
+        echo '<td><p>' . $item['param'] . '</p>
+        <input type="hidden" name="pp_3dfc_cover['.$i.'][id]" value="'.$item['id'].'" />
+        <input type="hidden" name="pp_3dfc_cover['.$i.'][param]" value="'.$item['param'].'" />
+        </td>';
         echo '<td><input name="pp_3dfc_cover['.$i.'][value]" type="text" value="' . $item['value'] . '" /></td>';
         echo '</tr>';
         
@@ -403,7 +406,9 @@ function deleteAllCoverData() {
 
 function updateCoverData($data){
     global $wpdb;
-    $sql = "UPDATE " . pp_3dfc_cover_table_name() . 'SET value="'.$data['value'].'" WHERE param="'.$data['param'].'";';
+    $sql = "UPDATE " . pp_3dfc_cover_table_name() . ' SET value="'.$data['value'].'" WHERE param="'.$data['param'].'";';
     $wpdb->query($sql);
+    // $wpdb->show_errors();
+    // echo $wpdb->last_query.'<br>';
 }
 ?>
