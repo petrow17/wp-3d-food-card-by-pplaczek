@@ -1,12 +1,14 @@
 /* General Demo Style */
 
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 .rm-container {
     font-family: 'Raleway', 'Arial', sans-serif;
-    font-size: 13px;
+    font-size: 13px !important;
     /* background: #fff url(../images/bg.jpg); */
     -webkit-font-smoothing: antialiased;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /*    overflow-y: scroll;*/
+    /*    overflow-x: hidden;*/
     font-weight: 300;
 }
 
@@ -42,7 +44,7 @@
     padding: 20px 10px 10px 10px;
     position: relative;
     display: block;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
@@ -55,7 +57,7 @@
     text-transform: uppercase;
     font-family: 'Arvo', Arial, sans-serif;
     color: #fff;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 .rm-container > .container > header h2 {

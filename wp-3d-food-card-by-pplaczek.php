@@ -362,7 +362,13 @@ function pp_3dfc_get_page_content($pageNo){
 			$currentItemType = $item['type'];
 		}
 		
-		$result .= '<dt>'.$item['title'].' <i>('.$item['amount'].')</i> <b>'.$item['price'].'</b>'.$item['currency'].'</dt>';
+		$result .= '<dt><b>'.$item['title'].'</b><br>';
+        
+        if($item['amount'] <> ""){
+            $result .= ' <i>('.$item['amount'].')</i> ';
+        }
+        
+        $result .= '<i>'.$item['price'].$item['currency'].'</i></dt>';
 		$result .= '<dd>'.$item['description'].'</dd>';
 	}
 	
