@@ -360,15 +360,18 @@ function pp_3dfc_get_page_content($pageNo){
 			}
 			$result .= '<h4>'.$item['type'].'</h4><dl>';
 			$currentItemType = $item['type'];
-		}
+        }
+        else{
+            $result .= '<dl>';
+        }
 		
-		$result .= '<dt><b>'.$item['title'].'</b><br>';
+		$result .= '<dt><b>'.$item['title'].' </b>';
         
         if($item['amount'] <> ""){
             $result .= ' <i>('.$item['amount'].')</i> ';
         }
         
-        $result .= '<i>'.$item['price'].$item['currency'].'</i></dt>';
+        $result .= ' <i>'.$item['price'].$item['currency'].'</i></dt>';
 		$result .= '<dd>'.$item['description'].'</dd>';
 	}
 	
