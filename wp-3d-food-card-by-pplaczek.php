@@ -261,7 +261,7 @@ function pp_3dfc_show_cover_front(){
 	echo '<div class="rm-logo"></div>';
 	echo '<h2>'.$items[0]['value'].'</h2>';
 	echo '<h3>'.$items[1]['value'].'</h3>';
-	echo '<a href="#" class="rm-button-open">'.__('Open').'</a>';
+	echo '<a href="#" class="rm-button-open">'.__('Otwórz').'</a>';
 	echo '<div class="rm-info"><p>';
 	echo '<strong>'.$items[0]['value'].'</strong>';
 	echo '<br>';
