@@ -1,4 +1,5 @@
 <?php
+define( 'WP_DEBUG', true );
 /*
 	Plugin Name: Wp 3D Food Card by pplaczek
 	Plugin URI: https://github.com/petrow17/wp-3d-food-card-by-pplaczek
@@ -29,7 +30,9 @@ function pp_3dfc_init(){
 	wp_register_style('pp3dfc_style_demo', plugins_url('/css/demo.css', __FILE__),array('pp3dfc_style_normalize'));
 	wp_enqueue_style('pp3dfc_style_demo');
 	wp_register_style('pp3dfc_style_menu', plugins_url('/css/style.css', __FILE__),array('pp3dfc_style_demo'));
-	wp_enqueue_style('pp3dfc_style_menu');
+    wp_enqueue_style('pp3dfc_style_menu');
+    wp_register_style('pp3dfc_style_menu_custom', plugins_url('/css/custom.css', __FILE__),array('pp3dfc_style_menu'));
+	wp_enqueue_style('pp3dfc_style_menu_custom');
 }
 
 /*
@@ -43,12 +46,10 @@ function pp_3dfc_install(){
     if ($wpdb->get_var("SHOW TABLES LIKE '" . pp_3dfc_table_name() . "'") != pp_3dfc_table_name()) {
         $query = "CREATE TABLE " . pp_3dfc_table_name() . " ( 
         id int(9) NOT NULL AUTO_INCREMENT, 
+        no int(9) NOT NULL,
         type varchar(250) NOT NULL,  
         title varchar(250) NOT NULL,  
-        description varchar(250) NOT NULL,  
-        amount varchar(250) NOT NULL, 
         price varchar(250) NOT NULL, 
-        currency varchar(250) NOT NULL,
         PRIMARY KEY  (id)
         )";
 
@@ -84,11 +85,11 @@ function pp_3dfc_install(){
  * Uninstalation function
 */
 function pp_3dfc_uninstall(){
-    // global $wpdb;
-    // $query ='DROP TABLE '.pp_3dfc_table_name();
-    // $wpdb->query($query);
-    // $query ='DROP TABLE '.pp_3dfc_cover_table_name();
-    // $wpdb->query($query);
+    global $wpdb;
+    $query ='DROP TABLE '.pp_3dfc_table_name();
+    $wpdb->query($query);
+    $query ='DROP TABLE '.pp_3dfc_cover_table_name();
+    $wpdb->query($query);
 }
 
 /*
@@ -175,22 +176,21 @@ function pp_3dfc_display_items_ap_page(){
     if(isset($_POST['pp_3dfc'])){
         deleteAllItems();
         foreach($_POST['pp_3dfc'] as $item){
-            addItem(array('type'=>$item['type'], 'title'=>$item['title'],'description'=>$item['description'],'amount'=>$item['amount'],'price'=>$item['price'],'currency'=>'PLN')); //$item['currency']
+            addItem(array('no'=>$item['no'],'type'=>$item['type'], 'title'=>$item['title'],'price'=>$item['price'])); //$item['currency']
         }
     }
-    $allItems = getAllItems("type");
+
+    $allItems = getAllItems("no");
     
     echo '<h1>3D Food Card by pplaczek</h1>';
     echo '<form action="?page=food-card-ap-menu-items" method="post">';
     echo '<table class="pp_3dfc_ap_table">
     <thead>
     <tr>
+    <td>'.__('Order').'</td>
     <td>'.__('Type').'</td>
     <td>'.__('Title').'</td>
-    <td>'.__('Description').'</td>
-    <td>'.__('Amount').'</td>
     <td>'.__('Price').'</td>
-    <td>'.__('Currency').'</td>
     <td>'.__('Delete').'</td>
     </tr>
     </thead>';
@@ -199,12 +199,10 @@ function pp_3dfc_display_items_ap_page(){
     $i=0;
     foreach($allItems as $item){
         echo '<tr>';
+        echo '<td><input name="pp_3dfc['.$i.'][no]" type="text" value="' . $item['no'] . '" /></td>';
         echo '<td><input name="pp_3dfc['.$i.'][type]" type="text" value="' . $item['type'] . '" /></td>';
         echo '<td><input name="pp_3dfc['.$i.'][title]" type="text" value="' . $item['title'] . '" /></td>';
-        echo '<td><input name="pp_3dfc['.$i.'][description]" type="text" value="' . $item['description'] . '" /></td>';
-        echo '<td><input name="pp_3dfc['.$i.'][amount]" type="text" value="' . $item['amount'] . '" /></td>';
         echo '<td><input name="pp_3dfc['.$i.'][price]" type="text" value="' . $item['price'] . '" /></td>';
-        echo '<td><input name="pp_3dfc['.$i.'][currency]" type="text" value="' . $item['currency'] . '" disabled="disabled" /></td>';
         echo '<td><a class="delete" href="">' . __('Delete') . '</a></td>';
         echo '</tr>';
         
@@ -225,7 +223,7 @@ function pp_3dfc_display_items_ap_page(){
                 });
                 $("table .add").click(function() {
                     var count = $("tbody.items tr").length+1;
-                    var code=\'<tr><td><input type="text" name="pp_3dfc[\'+count+\'][type]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][title]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][description]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][amount]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][price]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][currency]" value="PLN" disabled="disabled" /></td><td><a class="delete" href="">' . __('Delete') . '</a></td></tr>\';
+                    var code=\'<tr><td><input type="text" name="pp_3dfc[\'+count+\'][no]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][type]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][title]" /></td><td><input type="text" name="pp_3dfc[\'+count+\'][price]" /></td><td><a class="delete" href="">' . __('Delete') . '</a></td></tr>\';
                     $("tbody.items").append(code);
                     return false;
                 });
@@ -286,9 +284,6 @@ function pp_3dfc_show_cover_back(){
 	echo '</div>';
 	echo '<div class="rm-overlay"></div>';
 	echo '</div>';
-	
-//	Not suported yet:
-//	<dt><a href="recipe.html" class="rm-viewdetails" data-thumb="images/1.jpg">Title with image and recipe</a></dt>
 }
 
 /*
@@ -314,9 +309,6 @@ function pp_3dfc_show_right_page(){
 	echo '<span class="rm-close">'.__('Close').'</span>';
 	echo '<div class="rm-content">';
 	echo pp_3dfc_get_page_content(2);
-//	<div class="rm-order">
-//		<p><strong>Would you like us to cater your event?</strong> Call us &amp; we'll help you find a venue and organize the event: <strong>626.511.1170</strong></p>
-//	</div>
 	echo '</div></div></div>';
 }
 
@@ -336,7 +328,7 @@ function pp_3dfc_menu_init_script(){
 */
 function pp_3dfc_get_page_content($pageNo){
 	if($pageNo<0 || 2<$pageNo) return null;
-	$items = getAllItems("type");
+	$items = getAllItems("no");
 	$itemsCount = count($items);
 	$itemsPerPage = $itemsCount/3;
 	$currentItemType = 'none';
@@ -365,14 +357,11 @@ function pp_3dfc_get_page_content($pageNo){
             $result .= '<dl>';
         }
 		
-		$result .= '<dt><b>'.$item['title'].' </b>';
+		$result .= '<dt><div class="name">'.$item['no'].' <b>'.$item['title'].'</b></div>';
+
+        $result .= '<div class="stretch">&nbsp;</div>';
         
-        if($item['amount'] <> ""){
-            $result .= ' <i>('.$item['amount'].')</i> ';
-        }
-        
-        $result .= ' <i>'.$item['price'].$item['currency'].'</i></dt>';
-		$result .= '<dd>'.$item['description'].'</dd>';
+        $result .= '<div class="price">'.$item['price'].' PLN</div></dt>';
 	}
 	
 	return $result;
@@ -386,7 +375,7 @@ function getAllItems($orderBy){
     
 function addItem($data) {
     global $wpdb;
-    $res = $wpdb->insert(pp_3dfc_table_name(), $data, array('%s','%s','%s','%s','%s','%s')); 
+    $res = $wpdb->insert(pp_3dfc_table_name(), $data, array('%s','%s','%s','%s')); 
 //    $wpdb->show_errors();
 //    echo $wpdb->last_query;
 }
